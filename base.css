@@ -1,4 +1,16 @@
 body {
     margin: 0;
     font-family: Calibry, sans-serif;
+    margin: 20px;
 }
+
+.notification {
+    display: none;
+}
+
+.notification.error {
+    color: red;
+    font-weight: bold;
+}
+
+.notification.active { display: block }
