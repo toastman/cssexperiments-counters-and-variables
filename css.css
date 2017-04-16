@@ -1,0 +1,141 @@
+.axis {
+    --step-number: 20;
+    --step: calc(var(--step-number) * 1px);
+
+    display: inline-block;
+    outline: 1px solid lightgray;
+    padding: 20px;
+    margin: 20px
+}
+
+.axis-x {
+    counter-reset: x-el-number -1 x-el-width 0;
+    display: inline-block;
+    font-size: 0;
+    height: 10px;
+    margin: 0 20px 20px 20px;
+    position: relative;
+}
+
+.axis-x::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    border-bottom: 1px solid black;
+    width: 100%;
+    left: 0;
+    z-index: 0;
+}
+.axis-x::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+
+    border-left: 10px solid black;
+    right: 0;
+    position: absolute;
+}
+
+
+.axis-x span {
+    width: var(--step);
+    margin-bottom: -5px;
+    border-left: 1px solid black;
+    height: 10px;
+    display: inline-block;
+    position: relative;
+    font-size: 10px;
+    box-sizing: border-box;
+}
+
+.axis-x span::before {
+    position: absolute;
+    content: counter(x-el-number);
+    counter-increment: x-el-number;
+    transform: translateX(-50%) translateY(100%);
+}
+
+.axis-x span::after {
+    position: absolute;
+    content: counter(x-el-width) 'px';
+    counter-increment: x-el-width var(--step-number);
+    transform: translateX(50%) translateY(-100%);
+    visibility: hidden;
+}
+
+.axis-x span:hover:after,
+.axis-y span:hover:after {
+    visibility: visible;
+}
+
+.axis-x span:hover ~ span,
+.axis-y span:hover ~ span{
+    background: transparent;
+}
+
+.axis-x:hover span,
+.axis-y:hover span {
+    background: rgba(0, 100, 0, 0.7);
+}
+
+.axis-y {
+    display: flex;
+    flex-direction: column-reverse;
+    font-size: 10px;
+    margin: 20px 20px 0 20px;
+    width: 10px;
+    position: relative;
+    left: -5px;
+    bottom: -15px;
+    counter-reset: y-el-number -1 y-el-height 0;
+}
+.axis-y::after {
+    content: '';
+    position: absolute;
+    border-left: 1px solid black;
+    left: 50%;
+    top:0;
+    bottom: 0;
+}
+
+.axis-y::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 10px solid black;
+    position: absolute;
+    top: 0;
+}
+
+.axis-y span::after {
+    position: absolute;
+    content: counter(y-el-height) 'px';
+    counter-increment: y-el-height var(--step-number);
+    transform: translateX(70%) translateY(-50%);
+    visibility: hidden;
+}
+.axis-y span::before {
+    content: counter(y-el-number);
+    counter-increment: y-el-number;
+    position: absolute;
+    bottom: 0;
+
+    transform: translateX(-150%) translateY(50%);
+}
+.axis-y span:first-child::before {
+    content: ''
+}
+.axis-y span {
+    height: var(--step);
+    display: block;
+    border-top: 1px solid black;
+    position: relative;
+}
+
+.axis-y span:last-child {
+    border: none;
+}
